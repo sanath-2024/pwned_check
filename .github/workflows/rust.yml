@@ -24,6 +24,20 @@ jobs:
         name: pwned_check-x86_64-ubuntu
         path: target/release/pwned_check
 
+  build_macos:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build (macOS)
+      run: cargo build --release
+    - name: Upload
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: pwned_check-x86_64-macos
+        path: target/release/pwned_check
+
   build_windows:
 
     runs-on: windows-latest
