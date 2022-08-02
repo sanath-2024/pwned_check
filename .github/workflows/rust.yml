@@ -1,0 +1,39 @@
+name: Test and Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build_ubuntu:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build (Ubuntu)
+      run: cargo build --release
+    - name: Upload
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: pwned_check-x86_64-ubuntu
+        path: target/release/pwned_check
+
+  build_windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build (Windows)
+      run: cargo build --release
+    - name: Upload
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: pwned_check-x86_64-windows
+        path: target/release/pwned_check
